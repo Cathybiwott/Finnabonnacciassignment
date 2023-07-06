@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.recyclerviewsbonacci.databinding.ActivityMainBinding
+import java.math.BigInteger
 
 class MainActivity : AppCompatActivity() {
      lateinit var binding: ActivityMainBinding
@@ -16,18 +17,21 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        fibonacci()
+        displayFibonacci()
     }
-    fun fibonacci():List<Int>{
-        var numbers = mutableListOf<Int>()
-        numbers.add(0)
-        numbers.add(1)
-
-        for(i in 2 until 101){
-            numbers.add(numbers[i-1]+ numbers[i-2])
+    fun fibonacci(n: Int):List<BigInteger>{
+        val numbers = mutableListOf<BigInteger>(BigInteger.ZERO, BigInteger.ONE)
+        while(numbers.size<n){
+            var next = numbers[numbers.lastIndex] + numbers[numbers.lastIndex-1]
+            numbers.add(next)
         }
+        return numbers
+
+        }
+    fun displayFibonacci(){
+        val fibNumber = fibonacci(100)
+        val namesAdapter = NumbersRvAdapter(fibNumber)
         binding.rvNums.layoutManager = LinearLayoutManager(this)
-        val namesAdapter = NumbersRvAdapter(numbers)
         binding.rvNums.adapter = namesAdapter
         return numbers
     }

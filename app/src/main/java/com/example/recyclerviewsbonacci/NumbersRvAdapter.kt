@@ -5,15 +5,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import java.math.BigInteger
 
-class NumbersRvAdapter(var numbers:List<Int>):RecyclerView.Adapter<NumbersRvAdapter.NumbersViewHolder>(){
+class NumbersRvAdapter(var numbers:List<BigInteger>):RecyclerView.Adapter<NumbersRvAdapter.NumbersViewHolder>(){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NumbersRvAdapter.NumbersViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.numbers_list_item,parent,false)
-        return NumbersViewHolder(view)
+        val itemView
+        return NumbersViewHolder(itemView)
     }
 
     override fun onBindViewHolder(holder: NumbersRvAdapter.NumbersViewHolder, position: Int) {
-        holder.tvNums.text = numbers[position].toString()
+        var currentNum = numbers.get(position)
+        holder.tvNums.text = currentNum.toString()
 
     }
 
